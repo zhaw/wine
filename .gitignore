@@ -1,3 +1,11 @@
+*.rar
+*.zip
+*.mat
+*.jpg
+*.jpeg
+*.png
+*.bmp
+
 # Compiled Object files
 *.slo
 *.lo
