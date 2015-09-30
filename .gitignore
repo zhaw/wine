@@ -7,6 +7,7 @@ match_test_to_train.xls
 *.jpeg
 *.png
 *.bmp
+*.m~
 
 # Compiled Object files
 *.slo
