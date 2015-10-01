@@ -1,4 +1,5 @@
 match_test_to_train.xls
+.DS_Store
 
 *.rar
 *.zip
