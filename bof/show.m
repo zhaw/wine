@@ -14,7 +14,7 @@ f = cell(5,1);
 for k = 1:5
     f{k} = @(hObj,~)set_value(hObj,k);
 end
-for j = 1:10
+for j = 1:length(result)
     map(result{j,1})
     map(result{j,2})
     if is_same_brand(map(result{j,1}), map(result{j,2}))
