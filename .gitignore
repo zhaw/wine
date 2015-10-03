@@ -1,6 +1,8 @@
+h_affine.m
 match_test_to_train.xls
 .DS_Store
 
+tmp*.*
 *.rar
 *.zip
 *.mat
@@ -8,6 +10,7 @@ match_test_to_train.xls
 *.jpeg
 *.png
 *.bmp
+*.ppm
 *.m~
 
 # Compiled Object files

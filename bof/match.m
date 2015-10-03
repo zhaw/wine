@@ -1,7 +1,7 @@
 bof_train = 'bof_train/';
-bof_test = 'bof_test2_cutted/';
+bof_test = 'bof_test2_autocut/';
 sift_train = 'sift_feature_train/';
-sift_test = 'sift_feature_test2_cutted/';
+sift_test = 'sift_feature_test2_autocut/';
 try
     mkdir(bof_train);
     mkdir(bof_test);
@@ -15,7 +15,7 @@ train_files = dir(sift_train);
 train_bof = zeros(length(train_files)-2, 800);
 train_sift = cell(1, length(train_files)-2);
 result = cell(length(test_files)-2, 15);
-
+tic
 for i = 3:length(train_files)
     x = load([bof_train train_files(i).name]);
     x = x.f;
@@ -62,3 +62,4 @@ for i = 3:length(test_files)
         result{i-2, k+1} = name(1:end-4);
     end
 end
+toc

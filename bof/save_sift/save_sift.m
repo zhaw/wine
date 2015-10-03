@@ -1,18 +1,18 @@
-
+tic
 %%precomputeSIFT    Compute and save SIFT descriptors for all images in database
 clear;close all;clc;
 addpath('affineFeatures/')
 scalingDescriptor = 1; % 1 = no scaling. %sqrt(2);
 
-folderDatabase = '../pics/test2_cutted';
-savefolder='../sift_feature_test2_cutted';
+folderDatabase = '../pics/test2_autocut';
+savefolder='../sift_feature_test2_autocut';
 % saveimgfolder='database/DR_test_part2'
 try
     mkdir(savefolder);
 catch
 end
 % mkdir(saveimgfolder);
-R=dir([folderDatabase '/' '*.png']);
+R=dir([folderDatabase '/' '*.jpg']);
 % ndx = 0; 
 Feat=[]; 
 % classes=[];
@@ -48,7 +48,8 @@ for n = 1:length(R)
         class=[];
         feature=[];
 %    end
-    catch
+    catch e
+        e
     end
 end
 % save database/DR_traindata Feat classes
@@ -81,3 +82,4 @@ end
 % 
 % save database/batchtestdata1 Targetlabel VisualFeat
     
+toc

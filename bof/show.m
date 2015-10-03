@@ -1,3 +1,5 @@
+addpath('utils/');
+
 a = load('../file_brand_map.mat');
 map = a.map;
 result = load('result');
@@ -19,7 +21,7 @@ for j = 1:10
         right = right+1;
     end
     subplot(2,3,1)
-    im = imread(['pics/test2_cutted/' result{j,1} '.png']);
+    im = imread(['pics/test2_cutted/' result{j,1} '.jpg']);
     imshow(im);
     for k = 1:5
         subplot(2,3,k+1)
