@@ -27,7 +27,7 @@ for j = 1:10
         subplot(2,3,k+1)
         im = imread(['pics/train/' result{j,k+1} '.jpg']);
         ax = imshow(im);
-        set(ax,'ButtonDownFcn',f{k}, 'PickableParts','all');
+        set(ax,'ButtonDownFcn',f{k});% 'PickableParts','all');
     end
     is_right = zeros(5,1);
     pause
