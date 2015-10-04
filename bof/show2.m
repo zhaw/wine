@@ -1,3 +1,5 @@
+% To judge autocut precision.
+
 addpath('utils/');
 
 a = load('../file_brand_map.mat');

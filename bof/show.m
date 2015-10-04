@@ -1,3 +1,6 @@
+% To judge matching precision.
+% Also labeling positive and negative matches.
+
 addpath('utils/');
 
 a = load('../file_brand_map.mat');
