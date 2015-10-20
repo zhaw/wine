@@ -13,9 +13,9 @@ q = 5;%%����ֱ���ϵĵ���%�����޸ļӿ�����
 imrgb = imread(orgain_image);
 [row,col,dep]=size(imrgb);
 if row>col
-    imrgb=imresize(imrgb,[min(256,row),min(256,row)*col/row]);
+    imrgb=imresize(imrgb,[min(2560,row),min(2560,row)*col/row]);
 else
-    imrgb=imresize(imrgb,[min(256,col)*row/col,min(256,col)]);
+    imrgb=imresize(imrgb,[min(2560,col)*row/col,min(2560,col)]);
 end
 [Y,X] = size(imrgb(:,:,1));
 if(X > Y)%%%%��ͼ����ת
@@ -25,7 +25,7 @@ imrgb = edgecut(imrgb);%ȥ��ͼ��ĺڱߣ�
 [Y,X] = size(imrgb(:,:,1));
 imrgb_orgain = imrgb;
 
-imrgb = imresize(imrgb,426/Y);%����ͼ���С%%%%%%%%%%%%%%�����޸�426�ӿ�����ٶȣ�100��426֮��
+imrgb = imresize(imrgb,4260/Y);%����ͼ���С%%%%%%%%%%%%%%�����޸�426�ӿ�����ٶȣ�100��426֮��
 imgray = rgb2gray(imrgb);%ת���ɻҶ�
 im = imgray;
 [Y,X] = size(im);

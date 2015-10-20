@@ -4,12 +4,12 @@ addpath('utils/');
 
 a = load('../file_brand_map.mat');
 map = a.map;
-result = load('result');
+result = load('result_autocut');
 result = result.result;
 for j = 1:1500
-    subplot(2,3,1)
-    im = imread(['pics/test2_cutted/' result{j,1} '.jpg']);
-    imshow(im);
+%     subplot(2,3,1)
+%     im = imread(['pics/test2_cutted/' result{j,1} '.jpg']);
+%     imshow(im);
     subplot(2,3,2)
     im = imread(['pics/test2/' result{j,1} '.jpg']);
     imshow(im)

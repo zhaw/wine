@@ -3,13 +3,18 @@
 tmp*.*
 *.rar
 *.zip
-*.mat
+*.swp
+bof/sift_feature*
+bof/bof*
+bof/kmeans_feature
+data
 *.jpg
 *.jpeg
 *.png
 *.bmp
 *.ppm
 *.m~
+vlfeat*
 
 # Compiled Object files
 *.slo

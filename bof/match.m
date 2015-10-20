@@ -1,7 +1,9 @@
 bof_train = 'bof_train/';
-bof_test = 'bof_test2_autocut/';
+bof_test = 'bof_test2_cutted/';
 sift_train = 'sift_feature_train/';
-sift_test = 'sift_feature_test2_autocut/';
+sift_test = 'sift_feature_test2_cutted/';
+net = load('net2');
+net = net.net2;
 try
     mkdir(bof_train);
     mkdir(bof_test);
@@ -9,6 +11,8 @@ try
     mkdir(sift_test);
 catch
 end
+
+addpath(genpath('vlfeat-0.9.20'));
 
 test_files = dir(sift_test);
 train_files = dir(sift_train);
@@ -50,8 +54,12 @@ for i = 3:length(test_files)
         if size(s1,2) < desc_num*thres
             vv(j) = 0;
         else
-            [~, score] = vl_ubcmatch(s,s1,2);
-            vv(j) = length(score);
+            [matches, score] = vl_ubcmatch(s,s1,2);
+            feat1 = s(:,matches(1,:));
+            feat2 = s1(:,matches(2,:));
+            feat = [feat1;feat2];
+            score = net(feat);
+            vv(j) = sum(score)*1.5-0.5*length(score);
         end
     end
     vv = [(1:range)', -vv];
@@ -62,4 +70,5 @@ for i = 3:length(test_files)
         result{i-2, k+1} = name(1:end-4);
     end
 end
+save('result_with_net15.mat', 'result');
 toc

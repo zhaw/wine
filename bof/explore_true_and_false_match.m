@@ -1,3 +1,5 @@
+addpath(genpath('vlfeat-0.9.20'));
+
 centroids = load('kmeans_feature/kmeans_feature.mat');
 centroids = centroids.centroids;
 x = load('true_false_match');
@@ -8,6 +10,10 @@ tn = size(truth,1);
 fn = size(falsehood,1);
 t_hist = zeros(800,1);
 f_hist = zeros(800,1);
+t_scores = [];
+f_scores = [];
+t_score_nums = [];
+f_score_nums = [];
 t2_hist = zeros(800,800);
 f2_hist = zeros(800,800);
 for i = 1:tn
@@ -33,6 +39,8 @@ for i = 1:tn
     [matches,scores] = vl_ubcmatch(sift1, sift2);
     feat1 = idxs1(matches(1,:));
     feat2 = idxs2(matches(2,:));
+    t_scores = [t_scores, scores];
+    t_score_nums = [t_score_nums, length(scores)];
     t2_hist(sub2ind([800,800],feat1,feat2)) = t2_hist(sub2ind([800,800],feat1,feat2))+1;
 end
 
@@ -57,6 +65,8 @@ for i = 1:fn
     bof = min(bof1,bof2);
     f_hist = f_hist+bof;
     [matches,scores] = vl_ubcmatch(sift1, sift2);
+    f_scores = [f_scores, scores];
+    f_score_nums = [f_score_nums, length(scores)];
     feat1 = idxs1(matches(1,:));
     feat2 = idxs2(matches(2,:));
     f2_hist(sub2ind([800,800],feat1,feat2)) = f2_hist(sub2ind([800,800],feat1,feat2))+1;
@@ -64,7 +74,21 @@ end
 
 t_h = diag(t2_hist);
 f_h = diag(f2_hist);
-subplot(1,2,1);
+subplot(3,2,1);
 plot(1:800,t_h);
-subplot(1,2,2);
+axis([0,800,0,750])
+subplot(3,2,2);
 plot(1:800,f_h);
+axis([0,800,0,750])
+subplot(3,2,3);
+hist(t_scores);
+axis([0,2.5e5,0,4e4])
+subplot(3,2,4);
+hist(f_scores);
+axis([0,2.5e5,0,4e4])
+subplot(3,2,5);
+hist(t_score_nums);
+axis([0,300,0,1200])
+subplot(3,2,6);
+hist(f_score_nums);
+axis([0,300,0,1200])
