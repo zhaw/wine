@@ -1,7 +1,7 @@
 bof_train = 'bof_train/';
-bof_test = 'bof_test2_cutted/';
+bof_test = 'bof_test2_autocut/';
 sift_train = 'sift_feature_train/';
-sift_test = 'sift_feature_test2_cutted/';
+sift_test = 'sift_feature_test2_autocut/';
 net = load('net2');
 net = net.net2;
 try
@@ -70,5 +70,5 @@ for i = 3:length(test_files)
         result{i-2, k+1} = name(1:end-4);
     end
 end
-save('result_with_net15.mat', 'result');
+save('result_with_net15_autocut.mat', 'result');
 toc

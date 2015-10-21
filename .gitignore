@@ -1,12 +1,15 @@
 .DS_Store
 
 tmp*.*
+*.txt
+*.csv
 *.rar
 *.zip
 *.swp
 bof/sift_feature*
 bof/bof*
 bof/kmeans_feature
+bof/pics
 data
 *.jpg
 *.jpeg
