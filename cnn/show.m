@@ -2,12 +2,14 @@
 
 result = load('result');
 result = result.result;
-for j = 1:length(result)
-    subplot(1,2,1)
-    im = imread(['pics/test2_cutted/' result{j,1}(1:end-4) '.jpg']);
+for i = 1:length(result)
+    subplot(4,5,1)
+    im = imread(['pics/test2_cutted/' result{i,1}(1:end-4) '.jpg']);
     imshow(im);
-    subplot(1,2,2)
-    im = imread(['pics/train/' result{j,2}(1:end-4) '.jpg']);
-    imshow(im);
+    for j = 1:19
+        subplot(4,5,j+1)
+        im = imread(['pics/train/' result{i,j+1}(1:end-4) '.jpg']);
+        imshow(im);
+    end
     pause
 end

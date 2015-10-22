@@ -25,11 +25,13 @@ end
 
 disp('starting KNN search');
 
-[idx,d] = knnsearch(feature_train, feature_test);
+[idx,d] = knnsearch(feature_train, feature_test, 'k', 19);
 
 for i = 1:n_test
-    result{i,1} = files_test(i).name;
-    result{i,2} = files_train(idx(i)).name;
+    result{i,1} = files_test(i).name(1:end-4);
+    for j = 1:19
+        result{i,j+1} = files_train(idx(i,j)).name(1:end-4);
+    end
 end
 
 save result result
