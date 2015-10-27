@@ -1,6 +1,9 @@
 train_dir = 'pics/train_overfeat/';
 test_dir = 'pics/test2_cutted_overfeat/';
 
+valid_feature = load('valid_feature');
+valid_feature = valid_feature.valid_feature;
+
 files_train = dir([train_dir '*.csv']);
 files_test = dir([test_dir '*.csv']);
 files_train = files_train(3:end);
@@ -23,13 +26,20 @@ parfor i = 1:n_test
     feature_test(i,:) = x;
 end
 
+%feature_mean = mean(feature_train);
+%feature_std = std(feature_train);
+%feature_train = (feature_train-repmat(feature_mean,size(feature_train,1),1))...
+%./ repmat(feature_std,size(feature_train,1),1);
+%feature_test = (feature_test-repmat(feature_mean,size(feature_test,1),1))...
+%./ repmat(feature_std,size(feature_test,1),1);
+
 disp('starting KNN search');
 
-[idx,d] = knnsearch(feature_train, feature_test, 'k', 19);
+[idx,d] = knnsearch(feature_train(:,:), feature_test(:,:), 'k', 1, 'Distance', 'mahalanobis');
 
 for i = 1:n_test
     result{i,1} = files_test(i).name(1:end-4);
-    for j = 1:19
+    for j = 1:1
         result{i,j+1} = files_train(idx(i,j)).name(1:end-4);
     end
 end
