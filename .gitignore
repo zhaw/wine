@@ -17,6 +17,7 @@ data
 *.bmp
 *.ppm
 *.m~
+*.mdb
 vlfeat*
 
 # Compiled Object files
