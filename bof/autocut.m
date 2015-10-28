@@ -6,11 +6,14 @@ function [image_cut] = autocut(orgain_image)
 %% ��� left_cut =1 :��벿�ݾ������
 %% ��� right_cut = 1���Ұ벿�ݾ������
 
+global ROOT;
+addpath([ROOT 'Seg_m/segment_guangyi']);
+
 s = 3;%%�϶˵�����ֱ�߼�������޸ļӿ������ٶȣ�������1��5
 ss = 2;%%�¶˵�����ֱ�ߵļ��%Ϊ��׼ȷ�Ȳ������޸�
 q = 5;%%����ֱ���ϵĵ���%�����޸ļӿ������ٶȽ�����1��5
 
-imrgb = imread(orgain_image);
+imrgb = orgain_image;
 [row,col,dep]=size(imrgb);
 % if row>col
 %     imrgb=imresize(imrgb,[min(2560,row),min(2560,row)*col/row]);
