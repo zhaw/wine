@@ -13,7 +13,7 @@ layer {
   data_param {
     source: "wine_lmdb_tr/"
     backend: LMDB
-    batch_size: 10 
+    batch_size: 25 
   }
 }
 layer {
@@ -30,7 +30,7 @@ layer {
   data_param {
     source: "wine_lmdb_te/"
     backend: LMDB
-    batch_size: 10
+    batch_size: 25
   }
 }
 layer {
@@ -348,4 +348,50 @@ layer {
   contrastive_loss_param {
     margin: 1
   }
+}
+layer {
+  name: "feat_con"
+  type: "Concat"
+  bottom: "feat"
+  bottom: "feat_p"
+  top: "feat_con"
+}
+layer {
+  name: "ip3"
+  type: "InnerProduct"
+  bottom: "feat_con"
+  top: "ip3"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  inner_product_param {
+    num_output: 2
+    weight_filler {
+      type: "gaussian"
+      std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "accuracy"
+  type: "Accuracy"
+  bottom: "ip3"
+  bottom: "sim"
+  top: "accuracy"
+  include {
+    phase: TEST
+  }
+}
+layer {
+  name: "sigmoidloss"
+  type: "SoftmaxWithLoss"
+  bottom: "ip3"
+  bottom: "sim"
+  top: "sigmoidloss"
 }

@@ -68,16 +68,35 @@ for i in xrange(falsehood_n):
     X[truth_n+i,3:,:,:] = im2
     Y[truth_n+i] = 0
 
+rp = np.random.permutation(N)
+xtr = X[rp[:int(N*0.7)],...]
+ytr = Y[rp[:int(N*0.7)]]
+xte = X[rp[int(N*0.7):],...]
+yte = Y[rp[int(N*0.7):],...]
+
 map_size = X.nbytes * 4
-env = lmdb.open('wine_lmdb', map_size=map_size)
+env = lmdb.open('wine_lmdb_tr', map_size=map_size)
 with env.begin(write=True) as txn:
-    for i in xrange(N):
+    for i in xrange(xtr.shape[0]):
         datum = caffe.proto.caffe_pb2.Datum()
-        datum.channels = X.shape[1]
-        datum.height = X.shape[2]
-        datum.width = X.shape[3]
-        datum.data = X[i].tobytes()
-        datum.label = Y[i]
+        datum.channels = xtr.shape[1]
+        datum.height = xtr.shape[2]
+        datum.width = xtr.shape[3]
+        datum.data = xtr[i].tobytes()
+        datum.label = ytr[i]
+        str_id = '{:08}'.format(i)
+        txn.put(str_id, datum.SerializeToString())
+env.close()
+
+env = lmdb.open('wine_lmdb_te', map_size=map_size)
+with env.begin(write=True) as txn:
+    for i in xrange(xte.shape[0]):
+        datum = caffe.proto.caffe_pb2.Datum()
+        datum.channels = xte.shape[1]
+        datum.height = xte.shape[2]
+        datum.width = xte.shape[3]
+        datum.data = xte[i].tobytes()
+        datum.label = yte[i]
         str_id = '{:08}'.format(i)
         txn.put(str_id, datum.SerializeToString())
 env.close()
