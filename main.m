@@ -1,4 +1,4 @@
-function [result] = main( im, topn, autocut, vargin )
+function [result, im] = main( im, topn, autocut, vargin )
 %MAIN returns the top-n match to the input image.
 %   MAIN(im) returns the top-5 match to the input image without autocut.
 %   
@@ -15,7 +15,7 @@ function [result] = main( im, topn, autocut, vargin )
     end
     
     global ROOT;
-    ROOT = '/home/zhaow/Projects/wine/';
+    ROOT = '/home/zw/Projects/wine/';
     addpath([ROOT 'bof']);
     if autocut
         im = autocut(im);
@@ -92,4 +92,5 @@ function [result] = main( im, topn, autocut, vargin )
         name = train_files(v(vv(k,1),1)+2).name;
         result{k} = name(1:end-4);
     end
+    im = imread([ROOT 'bof/pics/train/' result{1} '.jpg']);
 end
