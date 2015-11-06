@@ -44,8 +44,8 @@ for i in xrange(pp1.shape[0]):
 # Make LMDB data.
 truth_n = len(truth_pair)
 falsehood_n = len(false_pair)
-truth_n /= 5
-falsehood_n /= 5
+truth_n /= 2
+falsehood_n /= 2
 N = truth_n + falsehood_n
 
 X = np.zeros((N,6,250,250), dtype=np.uint8)

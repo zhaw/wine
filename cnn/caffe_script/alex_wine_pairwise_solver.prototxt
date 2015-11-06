@@ -1,5 +1,5 @@
 # The train/test net protocol buffer definition
-net: "caffe_script/wine_pairwise_train_test.prototxt"
+net: "caffe_script/alex_wine_pairwise_train_test.prototxt"
 # test_iter specifies how many forward passes the test should carry out.
 # In the case of MNIST, we have test batch size 100 and 100 test iterations,
 # covering the full 10,000 testing images.
@@ -20,6 +20,6 @@ display: 500000000
 max_iter: 500000
 # snapshot intermediate results
 snapshot: 5000
-snapshot_prefix: "caffe_script/wine_pairwise"
+snapshot_prefix: "caffe_script/alex_wine_pairwise"
 # solver mode: CPU or GPU
 solver_mode: GPU
