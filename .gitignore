@@ -1,6 +1,8 @@
 .DS_Store
 
-_iter*
+*.caffemodel
+*.solverstate
+*_iter*
 tmp*.*
 *.txt
 *.csv
