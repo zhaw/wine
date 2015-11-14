@@ -44,14 +44,14 @@ for i in xrange(pp1.shape[0]):
 # Make LMDB data.
 truth_n = len(truth_pair)
 falsehood_n = len(false_pair)
-truth_n /= 2
-falsehood_n /= 2
-N = truth_n + falsehood_n
+# truth_n /= 2
+# falsehood_n /= 2
+print truth_n, falsehood_n
 
-X = np.zeros((N,6,250,250), dtype=np.uint8)
-Y = np.zeros(N, dtype=np.int64)
+X = np.zeros((int(truth_n*0.8),6,250,250), dtype=np.uint8)
+Y = np.zeros(int(truth_n*0.8), dtype=np.int64)
 
-for i in xrange(truth_n):
+for i in xrange(int(truth_n*0.8)):
     print i
     file_name1 = truth_pair[i][0]
     file_name2 = truth_pair[i][1]
@@ -80,7 +80,10 @@ for i in xrange(truth_n):
     X[i,3:,:,:] = im2
     Y[i] = 1
 
-for i in xrange(falsehood_n):
+X2 = np.zeros((int(falsehood_n*0.8),6,250,250), dtype=np.uint8)
+Y2 = np.zeros(int(falsehood_n*0.8), dtype=np.int64)
+
+for i in xrange(int(falsehood_n*0.8)):
     print i
     file_name1 = false_pair[i][0]
     file_name2 = false_pair[i][1]
@@ -105,35 +108,115 @@ for i in xrange(falsehood_n):
         continue
     im1 = np.resize(im1, [3,250,250])
     im2 = np.resize(im2, [3,250,250])
-    X[truth_n+i,:3,:,:] = im1
-    X[truth_n+i,3:,:,:] = im2
-    Y[truth_n+i] = 0
-
-rp = np.random.permutation(N)
+    X2[i,:3,:,:] = im1
+    X2[i,3:,:,:] = im2
+    Y2[i] = 0
 
 map_size = X.nbytes * 4
 env = lmdb.open('wine_lmdb_tr', map_size=map_size)
 with env.begin(write=True) as txn:
-    for i in xrange(int(N*0.7)):
+    for i in xrange(int(truth_n*0.8)):
         datum = caffe.proto.caffe_pb2.Datum()
         datum.channels = X.shape[1]
         datum.height = X.shape[2]
         datum.width = X.shape[3]
-        datum.data = X[rp[i]].tobytes()
-        datum.label = Y[rp[i]]
+        datum.data = X[i].tobytes()
+        datum.label = Y[i]
         str_id = '{:08}'.format(i)
+        txn.put(str_id, datum.SerializeToString())
+    for i in xrange(int(falsehood_n*0.8)):
+        datum = caffe.proto.caffe_pb2.Datum()
+        datum.channels = X2.shape[1]
+        datum.height = X2.shape[2]
+        datum.width = X2.shape[3]
+        datum.data = X2[i].tobytes()
+        datum.label = Y2[i]
+        str_id = '{:08}'.format(i+truth_n)
         txn.put(str_id, datum.SerializeToString())
 env.close()
 
+X = np.zeros((truth_n-int(truth_n*0.8),6,250,250), dtype=np.uint8)
+Y = np.zeros(truth_n-int(truth_n*0.8), dtype=np.int64)
+
+for i in xrange(int(truth_n*0.8),truth_n):
+    print i
+    file_name1 = truth_pair[i][0]
+    file_name2 = truth_pair[i][1]
+    try:
+        im1 = img.open('pics/train/%s'%file_name1)
+        im2 = img.open('pics/train/%s'%file_name2)
+    except:
+        continue
+    im1 = im1.resize([250,250])
+    im2 = im2.resize([250,250])
+    im1 = np.array(im1)
+    im2 = np.array(im2)
+    if len(im1.shape) == 3:
+        im1 = im1[:,:,::-1]
+        im1 = im1.transpose((2,0,1))
+    else:
+        continue
+    if len(im2.shape) == 3:
+        im2 = im2[:,:,::-1]
+        im2 = im2.transpose((2,0,1))
+    else:
+        continue
+    im1 = np.resize(im1, [3,250,250])
+    im2 = np.resize(im2, [3,250,250])
+    X[i-int(truth_n*0.8),:3,:,:] = im1
+    X[i-int(truth_n*0.8),3:,:,:] = im2
+    Y[i-int(truth_n*0.8)] = 1
+
+X2 = np.zeros((falsehood_n-int(falsehood_n*0.8),6,250,250), dtype=np.uint8)
+Y2 = np.zeros(falsehood_n-int(falsehood_n*0.8), dtype=np.int64)
+
+for i in xrange(int(falsehood_n*0.8),falsehood_n):
+    print i
+    file_name1 = false_pair[i][0]
+    file_name2 = false_pair[i][1]
+    try:
+        im1 = img.open('pics/train/%s'%file_name1)
+        im2 = img.open('pics/train/%s'%file_name2)
+    except:
+        continue
+    im1 = im1.resize([250,250])
+    im2 = im2.resize([250,250])
+    im1 = np.array(im1)
+    im2 = np.array(im2)
+    if len(im1.shape) == 3:
+        im1 = im1[:,:,::-1]
+        im1 = im1.transpose((2,0,1))
+    else:
+        continue
+    if len(im2.shape) == 3:
+        im2 = im2[:,:,::-1]
+        im2 = im2.transpose((2,0,1))
+    else:
+        continue
+    im1 = np.resize(im1, [3,250,250])
+    im2 = np.resize(im2, [3,250,250])
+    X2[i-int(falsehood_n*0.8),:3,:,:] = im1
+    X2[i-int(falsehood_n*0.8),3:,:,:] = im2
+    Y2[i-int(falsehood_n*0.8)] = 0
+
 env = lmdb.open('wine_lmdb_val', map_size=map_size)
 with env.begin(write=True) as txn:
-    for i in xrange(int(N*0.7),N):
+    for i in xrange(int(truth_n*0.8),truth_n):
         datum = caffe.proto.caffe_pb2.Datum()
         datum.channels = X.shape[1]
         datum.height = X.shape[2]
         datum.width = X.shape[3]
-        datum.data = X[rp[i]].tobytes()
-        datum.label = Y[rp[i]]
+        datum.data = X[i-int(truth_n*0.8)].tobytes()
+        datum.label = Y[i-int(truth_n*0.8)]
         str_id = '{:08}'.format(i)
+        txn.put(str_id, datum.SerializeToString())
+    for i in xrange(int(falsehood_n*0.8), falsehood_n):
+        datum = caffe.proto.caffe_pb2.Datum()
+        datum.channels = X2.shape[1]
+        datum.height = X2.shape[2]
+        datum.width = X2.shape[3]
+        datum.data = X2[i-int(falsehood_n*0.8)].tobytes()
+        datum.label = Y2[i-int(falsehood_n*0.8)]
+        str_id = '{:08}'.format(i+truth_n)
         txn.put(str_id, datum.SerializeToString())
 env.close()

@@ -13,6 +13,8 @@ bof/sift_feature*
 bof/bof*
 bof/kmeans_feature
 bof/pics
+cnn/cnn_feature_train
+cnn/cnn_feature_test2_autocut
 data
 *.jpg
 *.jpeg

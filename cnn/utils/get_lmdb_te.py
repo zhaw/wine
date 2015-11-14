@@ -41,6 +41,7 @@ for i in xrange(truth_n):
         im2 = im2.transpose((2,0,1))
     else:
         continue
+    print i
     im1 = np.resize(im1, [3,250,250])
     im2 = np.resize(im2, [3,250,250])
     X[i,:3,:,:] = im1
@@ -66,6 +67,7 @@ for i in xrange(falsehood_n):
         im2 = im2.transpose((2,0,1))
     else:
         continue
+    print i
     im1 = np.resize(im1, [3,250,250])
     im2 = np.resize(im2, [3,250,250])
     X[truth_n+i,:3,:,:] = im1
