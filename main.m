@@ -1,4 +1,4 @@
-function [result, im] = main( im, topn, autocut, vargin )
+function [result, im] = main( im, topn, auto_cut, vargin )
 %MAIN returns the top-n match to the input image.
 %   MAIN(im) returns the top-5 match to the input image without autocut.
 %   
@@ -11,13 +11,13 @@ function [result, im] = main( im, topn, autocut, vargin )
 
     if nargin == 1
         topn = 5;
-        autocut = 0;
+        auto_cut = 0;
     end
     
     global ROOT;
     ROOT = '/home/zw/Projects/wine/';
     addpath([ROOT 'bof']);
-    if autocut
+    if auto_cut
         im = autocut(im);
     end
     
