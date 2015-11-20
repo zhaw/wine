@@ -26,10 +26,14 @@ for i = 3:length(r)
     features(left:right, :) = x';
 end
 
-[idx, centroids] = kmeans(features, 800, 'Display', 'iter', 'MaxIter', 15);
+addpath(genpath('vlfeat-0.9.20'));
+vl_setup()
+
+[centroids, idxs] = vl_kmeans(features, 1600, 'verbose', 'algorithm', 'elkan', 'MaxNumIterations', 25, 'NumTrees', 20);
+% [idx, centroids] = kmeans(features, 1600, 'Display', 'iter', 'MaxIter', 15);
 
 try
     mkdir('kmeans_feature');
 catch
 end
-save kmeans_feature/kmeans_feature.mat centroids
+save kmeans_feature/kmeans_feature1600.mat centroids

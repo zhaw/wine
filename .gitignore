@@ -10,6 +10,7 @@ tmp*.*
 *.zip
 *.swp
 bof/sift_feature*
+bof/vlsift_feature*
 bof/bof*
 bof/kmeans_feature
 bof/pics

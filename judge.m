@@ -32,6 +32,7 @@ for topn = 2:topn
         for j = 1:length(his_truth)
             if strcmp(his_truth{j}, result{i, topn})
                 round_right = round_right + 1;
+                ok(i) = 1;
                 break
             end
         end
