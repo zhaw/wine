@@ -1,7 +1,7 @@
 sift_feature_train = 'sift_feature_train/';
-sift_feature_test = 'sift_feature_test2_autocut/';
+sift_feature_test = 'sift_feature_test2_cutted/';
 bof_feature_train = 'bof_train6400/';
-bof_feature_test = 'bof_test2_autocut6400/';
+bof_feature_test = 'bof_test2_cutted6400/';
 
 try
     mkdir(sift_feature_train);

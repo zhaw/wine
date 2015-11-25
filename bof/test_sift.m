@@ -1,7 +1,7 @@
 bof_train = 'bof_train/';
-bof_test = 'bof_test2_autocut/';
+bof_test = 'bof_test2_cutted/';
 sift_train = 'sift_feature_train/';
-sift_test = 'sift_feature_test2_autocut/';
+sift_test = 'sift_feature_test2_cutted/';
 try
     mkdir(bof_train);
     mkdir(bof_test);
@@ -14,9 +14,8 @@ addpath(genpath('vlfeat-0.9.20'));
 
 test_files = dir(sift_test);
 train_files = dir(sift_train);
-train_bof = zeros(length(train_files)-2, 800);
 train_sift = cell(1, length(train_files)-2);
-result = cell(length(test_files)-2, 15);
+result = cell(length(test_files)-2, 2001);
 for i = 3:length(train_files)
     x = load([sift_train train_files(i).name]);
     x = x.feature;
@@ -51,5 +50,4 @@ end
 
 addpath('..');
 score = judge(result, 2000);
-save pure_sift_range_all result
-save ../scores/sift score
+save('pure_sift_range_all_cutted','result');

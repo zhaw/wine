@@ -1,8 +1,6 @@
 sift_feature_train = 'sift_feature_train/';
-sift_feature_test = 'sift_feature_test1/';
 try
     mkdir(sift_feature_train);
-    mkdir(sift_feature_test);
 catch
 end
 
@@ -29,14 +27,14 @@ end
 addpath(genpath('vlfeat-0.9.20'));
 vl_setup()
 
-[centroids, idxs] = vl_kmeans(features', 12800, 'verbose', 'MaxNumIterations', 25);
+% [centroids, idxs] = vl_kmeans(features', 12800, 'verbose', 'MaxNumIterations', 25);
 % [idx, centroids] = kmeans(features, 1600, 'Display', 'iter', 'MaxIter', 15);
 
-try
-    mkdir('kmeans_feature');
-catch
-end
-save kmeans_feature/kmeans_feature12800.mat centroids
+% try
+%    mkdir('kmeans_feature');
+% catch
+% end
+% save kmeans_feature/kmeans_feature12800.mat centroids
 
 addpath(genpath('vlfeat-0.9.20'));
 centroids = load('kmeans_feature/kmeans_feature12800.mat');
@@ -90,5 +88,5 @@ for i = 3:length(test_files)
 end
 
 addpath('..');
-score = judge(result, 2000)
-save ../scores/bof12800.mat score
+score = judge(result, 2000);
+save('../scores/bof12800_autocut.mat', 'score');
