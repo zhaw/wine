@@ -2,12 +2,17 @@ function [j, feat] = removeRedundancy(feat, th)
 %removeRedundancy    Remove redundant interest regions with significant overlap
 
 nb = size(feat,2);
+tmp = zeros(nb,1);
 
 j = 1;
 
-for c = 2:nb
+parfor c = 2:nb
 D = min(distKL(feat(:,c), feat(:,j), th));
-if D>th
+tmp(c-1) = D;
+end
+
+for c = 2:nb
+if tmp(c-1)>th
 j = [j c];
 end
 end
