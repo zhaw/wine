@@ -7,6 +7,9 @@ function [image_cut] = autocut(orgain_image)
 %% ��� right_cut = 1���Ұ벿�ݾ������
 
 global ROOT;
+if ROOT == []
+    ROOT = '~/Projects/wine/';
+end
 addpath([ROOT 'Seg_m/segment_guangyi']);
 
 s = 3;%%�϶˵�����ֱ�߼�������޸ļӿ������ٶȣ�������1��5

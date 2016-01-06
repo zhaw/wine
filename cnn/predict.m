@@ -1,8 +1,8 @@
 addpath(genpath('~/caffe/matlab'));
-caffe.set_mode_cpu();
+caffe.set_mode_gpu();
 caffe.set_device(0);
-net_model = 'caffe_script/imagenet_deploy.prototxt';
-net_weights = 'snapshot/imagenet_iter_140000.caffemodel';
+net_model = 'caffe_script/simple_deploy.prototxt';
+net_weights = 'snapshot/simple_iter_200000.caffemodel';
 phase = 'test';
 net = caffe.Net(net_model, net_weights, phase);
 

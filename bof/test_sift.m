@@ -1,7 +1,7 @@
 bof_train = 'bof_train/';
 bof_test = 'bof_test2_cutted/';
 sift_train = 'sift_feature_train/';
-sift_test = 'sift_feature_test2_cutted/';
+sift_test = 'sift_overlap_feature_test2_cutted/';
 try
     mkdir(bof_train);
     mkdir(bof_test);
@@ -23,6 +23,7 @@ for i = 3:length(train_files)
 end
 thres = 0.3;
 
+tic
 for i = 3:length(test_files)
     i
     name = test_files(i).name;
@@ -47,7 +48,11 @@ for i = 3:length(test_files)
         result{i-2, k+1} = name(1:end-4);
     end
 end
+time = toc;
+time = time / length(test_files)-2;
 
 addpath('..');
 score = judge(result, 2000);
-save('pure_sift_range_all_cutted','result');
+save('result/pure_sift_overlap_range_all_cutted','result');
+save('time/sift_overlap_time', 'time');
+save('../scores/sift_overlap', 'score');

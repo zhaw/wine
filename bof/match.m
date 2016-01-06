@@ -1,7 +1,7 @@
-bof_train = 'bof_train/';
-bof_test = 'bof_test2_autocut/';
+bof_train = 'bof_train6400/';
+bof_test = 'bof_test2_cutted6400/';
 sift_train = 'sift_feature_train/';
-sift_test = 'sift_feature_test2_autocut/';
+sift_test = 'sift_feature_test2_cutted/';
 net = load('net2');
 net = net.net2;
 try
@@ -16,7 +16,7 @@ addpath(genpath('vlfeat-0.9.20'));
 
 test_files = dir(sift_test);
 train_files = dir(sift_train);
-train_bof = zeros(length(train_files)-2, 800);
+train_bof = zeros(length(train_files)-2, 6400);
 train_sift = cell(1, length(train_files)-2);
 result = cell(length(test_files)-2, 15);
 tic
@@ -28,8 +28,10 @@ for i = 3:length(train_files)
     x = x.feature;
     train_sift{i-2} = x;
 end
-range = 1000;
+range = 250;
 thres = 0.3;
+
+scores = [];
 
 for i = 3:length(test_files)
     i
@@ -64,11 +66,13 @@ for i = 3:length(test_files)
     end
     vv = [(1:range)', -vv];
     vv = sortrows(vv, 2);
+    s1 = sorted_train_sift{vv(1,1)};
+    [~, score] = vl_ubcmatch(s,s1,2);
+    scores = [scores, score]; 
     result{i-2, 1} = name(1:end-4);
     for k = 1:14
         name = train_files(v(vv(k,1),1)+2).name;
         result{i-2, k+1} = name(1:end-4);
     end
 end
-save('result_with_net15_autocut.mat', 'result');
 toc

@@ -93,7 +93,7 @@ layer {
   convolution_param {
     num_output: 384
     pad: 1
-    kernel_size: 5
+    kernel_size: 4
   }
 }
 layer {

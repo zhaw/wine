@@ -1,5 +1,7 @@
 .DS_Store
+nohup.out
 
+*.log
 *.caffemodel
 *.solverstate
 *_iter*
@@ -9,7 +11,10 @@ tmp*.*
 *.rar
 *.zip
 *.swp
-bof/sift_feature*
+bof/analyse
+bof/pca_bof*
+bof/tfidf_*
+bof/sift*feature*
 bof/vlsift_feature*
 bof/bof*
 bof/kmeans_feature

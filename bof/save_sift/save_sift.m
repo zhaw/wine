@@ -4,8 +4,8 @@ clear;close all;clc;
 addpath('affineFeatures/')
 scalingDescriptor = 1; % 1 = no scaling. %sqrt(2);
 
-folderDatabase = '../pics/test2_autocut';
-savefolder='../sift_feature_test2_autocut';
+folderDatabase = '../pics/test2_cutted';
+savefolder='../sift_overlap_feature_test2_cutted';
 % saveimgfolder='database/DR_test_part2'
 try
     mkdir(savefolder);
@@ -17,6 +17,7 @@ R=dir([folderDatabase '/' '*.jpg']);
 Feat=[]; 
 % classes=[];
 
+tic
 for n = 1:length(R)
     
 %    for i = 1:3
@@ -30,7 +31,7 @@ for n = 1:length(R)
         % Feat(1:5,:) = location and region cov. matrix,
         % Feat(6:end,:) = SIFT descriptor
 
-        [feat, type] = h_affine(imresize(img,0.55), scalingDescriptor);
+        [feat, type] = h_affine(imresize(img,0.55), scalingDescriptor, 0);
         
         % display detected features
         % cla; displayROI(img, feat, type);
@@ -53,7 +54,9 @@ for n = 1:length(R)
     end
 end
 % save database/DR_traindata Feat classes
-
+time = toc;
+time = time/length(R);
+% save ../sift_get_time time
 
 %%  resize data to n*100 
 % load database/testdata1

@@ -15,7 +15,7 @@ function [result, im] = main( im, topn, auto_cut, vargin )
     end
     
     global ROOT;
-    ROOT = '/home/zw/Projects/wine/';
+    ROOT = '/home/zhaow/Projects/wine/';
     addpath([ROOT 'bof']);
     if auto_cut
         im = autocut(im);

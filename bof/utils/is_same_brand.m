@@ -27,7 +27,7 @@ for i1 = 2:n1
         end
     end
 end
-if tmp(n1,n2) > 0.75 * min([n1,n2])
+if tmp(n1,n2) > 0.99 * n1;%min([n1,n2])
     x = 1;
 else
     x = 0;
