@@ -70,7 +70,7 @@ function [result, im] = main( im, topn, auto_cut, vargin )
             v(j-2) = 0;
         else
             f1 = train_bof(j-2,:);
-            v(j-2) = dot(bof_feat, f1) / (norm(bof_feat)*norm(f1));
+            v(j-2) = bof_feat*f1' / (norm(bof_feat)*norm(f1));
         end
     end
     v = [(1:length(train_files)-2)', -v];
