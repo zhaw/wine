@@ -11,6 +11,7 @@ tmp*.*
 *.rar
 *.zip
 *.swp
+*.pyc
 bof/analyse
 bof/pca_bof*
 bof/tfidf_*
@@ -22,6 +23,12 @@ bof/vlad_*
 bof/pics
 cnn/cnn_feature_train
 cnn/cnn_feature_test2_autocut
+seg_cnn/mask
+seg_cnn/model_pascal
+seg_cnn/second_train
+seg_cnn/test2
+seg_cnn/test2_mask
+seg_cnn/train_boundary
 data
 *.jpg
 *.jpeg
