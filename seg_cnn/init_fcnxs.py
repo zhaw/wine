@@ -34,7 +34,7 @@ def init_from_vgg16(ctx, fcnxs_symbol, vgg16fc_args, vgg16fc_auxs):
     arg_shapes, _, _ = fcnxs_symbol.infer_shape(data=data_shape)
     rest_params = dict([(x[0], mx.nd.zeros(x[1], ctx)) for x in zip(arg_names, arg_shapes)
             if x[0] in ['score_weight', 'score_bias', 'score_pool4_weight', 'score_pool4_bias', \
-                        'score_pool3_weight', 'score_pool3_bias']])
+                        'score_pool3_weight', 'score_pool3_bias', 'bigscore_bias']])
     fcnxs_args.update(rest_params)
     deconv_params = dict([(x[0], x[1]) for x in zip(arg_names, arg_shapes)
             if x[0] in ["bigscore_weight", 'score2_weight', 'score4_weight']])
@@ -67,13 +67,13 @@ def init_from_fcnxs(ctx, fcnxs_symbol, fcnxs_args_from, fcnxs_auxs_from):
     # this is fcn8s init from fcn16s
     if 'score_pool3_weight' in arg_names:
         rest_params = dict([(x[0], mx.nd.zeros(x[1], ctx)) for x in zip(arg_names, arg_shapes)
-            if x[0] in ['score_pool3_bias', 'score_pool3_weight']])
+            if x[0] in ['score_pool3_bias', 'score_pool3_weight', 'bigscore_bias', 'score2_bias', 'score4_bias']])
         deconv_params = dict([(x[0], x[1]) for x in zip(arg_names, arg_shapes) if x[0] \
             in ["bigscore_weight", 'score4_weight']])
     # this is fcn16s init from fcn32s
     elif 'score_pool4_weight' in arg_names:
         rest_params = dict([(x[0], mx.nd.zeros(x[1], ctx)) for x in zip(arg_names, arg_shapes)
-            if x[0] in ['score_pool4_weight', 'score_pool4_bias']])
+            if x[0] in ['score_pool4_weight', 'score_pool4_bias', 'bigscore_bias', 'score2_bias']])
         deconv_params = dict([(x[0], x[1]) for x in zip(arg_names, arg_shapes) if x[0] \
             in ["bigscore_weight", 'score2_weight']])
     # this is fcn32s init
