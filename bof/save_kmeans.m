@@ -1,5 +1,5 @@
-sift_feature_train = 'sift_feature_train/';
-sift_feature_test = 'sift_feature_test1/';
+sift_feature_train = 'vlsift_train/';
+sift_feature_test = 'vlsift_test2_cutted/';
 try
     mkdir(sift_feature_train);
     mkdir(sift_feature_test);
@@ -11,6 +11,7 @@ c = 0;
 for i = 3:length(r)
     x = load([sift_feature_train r(i).name]);
     x = x.feature;
+    x = x{2};
     c = c + size(x,2);
 end
 
@@ -20,6 +21,7 @@ for i = 3:length(r)
     i
     x = load([sift_feature_train r(i).name]);
     x = x.feature;
+    x = x{2};
     left = c;
     right = c + size(x, 2) - 1;
     c = c + size(x, 2);
@@ -29,11 +31,11 @@ end
 addpath(genpath('vlfeat-0.9.20'));
 vl_setup()
 
-[centroids, idxs] = vl_kmeans(features, 1600, 'verbose', 'algorithm', 'elkan', 'MaxNumIterations', 25, 'NumTrees', 20);
+[centroids, idxs] = vl_kmeans(features', 200, 'verbose', 'algorithm', 'elkan', 'MaxNumIterations', 25, 'NumTrees', 20);
 % [idx, centroids] = kmeans(features, 1600, 'Display', 'iter', 'MaxIter', 15);
 
 try
     mkdir('kmeans_feature');
 catch
 end
-save kmeans_feature/kmeans_feature1600.mat centroids
+save kmeans_feature/kmeans_feature200.mat centroids

@@ -1,7 +1,7 @@
-sift_feature_train = 'sift_feature_train/';
-sift_feature_test = 'sift_feature_test2_cutted/';
-bof_feature_train = 'vlad_train801/';
-bof_feature_test = 'vlad_test2_cutted801/';
+sift_feature_train = 'vlsift_train/';
+sift_feature_test = 'vlsift_test2_cutted/';
+bof_feature_train = 'vlad_train200/';
+bof_feature_test = 'vlad_test2_cutted200/';
 
 try
     mkdir(sift_feature_train);
@@ -11,7 +11,7 @@ try
 catch
 end
 
-centroids = load('kmeans_feature/kmeans_feature801.mat');
+centroids = load('kmeans_feature/kmeans_feature200.mat');
 centroids = centroids.centroids';
 n = size(centroids, 1);
 
@@ -22,7 +22,9 @@ for i = 3:length(r)
     name = r(i).name;
     x = load([sift_feature_test r(i).name]);
     x = x.feature;
+    x = x{2};
     x = x';
+    x = double(x);
     f = zeros(1,n*128);
     [d,idxs] = pdist2(centroids,x,'euclidean','Smallest',1);
     length(idxs)
@@ -43,7 +45,9 @@ for i = 3:length(r)
     name = r(i).name;
     x = load([sift_feature_train r(i).name]);
     x = x.feature;
+    x = x{2};
     x = x';
+    x = double(x);
     f = zeros(1,n*128);
     [d,idxs] = pdist2(centroids,x,'euclidean','Smallest',1);
     length(idxs)

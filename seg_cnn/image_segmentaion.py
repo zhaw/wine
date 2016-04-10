@@ -7,7 +7,7 @@ from PIL import Image
 pallete = [ 0,0,0,
             255,255,255 ]
 model_previx = "model_pascal/FCN8s_VGG16"
-epoch = 1
+epoch = 2
 ctx = mx.gpu(0)
 
 def get_imgpath():
@@ -36,6 +36,7 @@ def main():
         print seg
         fcnxs_args["data"] = mx.nd.array(get_data(img), ctx)
         data_shape = fcnxs_args["data"].shape
+        print data_shape
         label_shape = (1, data_shape[2]*data_shape[3])
         fcnxs_args["softmax_label"] = mx.nd.empty(label_shape, ctx)
         exector = fcnxs.bind(ctx, fcnxs_args ,args_grad=None, grad_req="null", aux_states=fcnxs_args)

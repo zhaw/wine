@@ -16,7 +16,7 @@ bof/analyse
 bof/pca_bof*
 bof/tfidf_*
 bof/sift*feature*
-bof/vlsift_feature*
+bof/vlsift*
 bof/bof*
 bof/kmeans_feature
 bof/vlad_*

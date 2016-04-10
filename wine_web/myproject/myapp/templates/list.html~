@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>酒标识别Demo演示</title>	
+	</head>
+
+	<body>
+		<ul>
+                <div style="text-align: center; font-size:40px">
+                    <text> 酒标识别Demo演示 <text/>
+                </div>
+		</ul>
+		<!-- List of uploaded documents -->
+		{% if file_name %}
+		<ul>
+                <div style="text-align: center;">
+                    <img src=../../media/query/{{ file_name }} height="600"/>
+                    <img src=../../media/result/{{ file_name }} height="600"/>
+                </div>
+		</ul>
+		{% else %}
+		<ul>
+                <div style="text-align: center;">
+                    <img src=../../media/meitu_1.jpg height="600"/>
+                    <img src=../../media/meitu_2.jpg height="600"/>
+                </div>
+		</ul>
+		{% endif %}
+
+		<!-- Upload form. Note enctype attribute! -->
+        <div style="text-align: center;">
+            <form action="{% url "list" %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p>{{ form.non_field_errors }}</p>
+                <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+                <p>
+                    {{ form.docfile.errors }}
+                    {{ form.docfile }}
+                </p>
+                <p><input type="submit" value="Upload" /></p>
+            </form>
+        </div>
+		
+	</body>
+
+</html> 

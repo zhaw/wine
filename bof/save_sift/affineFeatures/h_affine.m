@@ -71,9 +71,9 @@ else
 end
 
 % 1) INTEREST REGION DETECTOR:
-detector{1} = sprintf('/home/zw/Projects/wine/bof/save_sift/ln_files/h_affine.ln -hesaff -i %s.ppm -o %s.reg -thres 5', tmpCode, tmpCode);
+detector{1} = sprintf('/home/zhaow/Project/wine/bof/save_sift/ln_files/h_affine.ln -hesaff -i %s.ppm -o %s.reg -thres 5', tmpCode, tmpCode);
 % 2) MAXIMALY STABLE REGION:
-detector{2} = sprintf('/home/zw/Projects/wine/bof/save_sift/ln_files/mser.ln -per 1 -ms 30 -mm 5 -t 2 -i %s.ppm -o %s.reg', tmpCode, tmpCode);
+detector{2} = sprintf('/home/zhaow/Project/wine/bof/save_sift/ln_files/mser.ln -per 1 -ms 30 -mm 5 -t 2 -i %s.ppm -o %s.reg', tmpCode, tmpCode);
 %detector{2} = sprintf('/home/luojf/mser.ln -t 2 -es 2 -i %s.ppm -o %s.reg', tmpCode, tmpCode);
 
 % REGION DETECTOR:
@@ -128,7 +128,7 @@ end
 writeFeatures(sprintf('%s.feat',tmpCode), feat, nb, dim);
 
 % 4) COMPUTE DESCRIPTORS:
-status = unix(sprintf('/home/zw/Projects/wine/bof/save_sift/ln_files/compute_descriptors.ln -sift -noangle -i %s.ppm -p1 %s.feat -o %s.feat.sift', tmpCode, tmpCode, tmpCode));
+status = unix(sprintf('/home/zhaow/Project/wine/bof/save_sift/ln_files/compute_descriptors.ln -sift -noangle -i %s.ppm -p1 %s.feat -o %s.feat.sift', tmpCode, tmpCode, tmpCode));
 
 %status = unix('./compute_descriptors.ln -gloh -noangle -i img.ppm -p1 img.ha -o img.ha.gloh');
 
