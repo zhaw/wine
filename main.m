@@ -15,14 +15,14 @@ function [result, im] = main( im, topn, auto_cut, vargin )
     end
     
     global ROOT;
-    ROOT = '/home/zhaow/Project/wine/';
+    ROOT = '/home/zhaow/Projects/wine/';
     addpath([ROOT 'bof']);
     addpath(genpath([ROOT 'bof/vlfeat-0.9.20']));
     if auto_cut
         im = autocut(im);
     end
     im = im2single(im);
-    im = imresize(im, [300,NaN]);
+    im = imresize(im, [500,NaN]);
     im = rgb2gray(im);
     [f1, d1] = vl_sift(im);
     d1 = double(d1);
@@ -80,7 +80,7 @@ function [result, im] = main( im, topn, auto_cut, vargin )
     vv = sortrows(vv, 2);
     current_best = 0;
     target = 0;
-    for k = 1:50
+    for k = 1:10
         if -vv(k,2) < current_best
             break
         end

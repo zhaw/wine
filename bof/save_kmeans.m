@@ -31,11 +31,11 @@ end
 addpath(genpath('vlfeat-0.9.20'));
 vl_setup()
 
-[centroids, idxs] = vl_kmeans(features', 200, 'verbose', 'algorithm', 'elkan', 'MaxNumIterations', 25, 'NumTrees', 20);
+[centroids, idxs] = vl_kmeans(features', 400, 'verbose', 'algorithm', 'elkan', 'MaxNumIterations', 25, 'NumTrees', 20);
 % [idx, centroids] = kmeans(features, 1600, 'Display', 'iter', 'MaxIter', 15);
 
 try
     mkdir('kmeans_feature');
 catch
 end
-save kmeans_feature/kmeans_feature200.mat centroids
+save kmeans_feature/kmeans_feature400.mat centroids

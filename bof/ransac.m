@@ -7,7 +7,7 @@ X1 = f1(1:2, matches(1,:)); X1(3,:) = 1;
 X2 = f2(1:2, matches(2,:)); X2(3,:) = 1;
 clear H score ok x23 deth;
 score = zeros(100,1);
-parfor t = 1:100
+for t = 1:100
     subset = vl_colsubset(1:numMatches, 4);
     A = [];
     for i = subset

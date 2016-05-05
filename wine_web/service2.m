@@ -1,4 +1,4 @@
-addpath('/home/zhaow/Project/wine');
+addpath('/home/zhaow/Projects/wine');
 while 1
     fid = fopen('job');
     file = fgets(fid);

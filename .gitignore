@@ -12,6 +12,7 @@ tmp*.*
 *.zip
 *.swp
 *.pyc
+wine_web/media/*
 bof/analyse
 bof/pca_bof*
 bof/tfidf_*
