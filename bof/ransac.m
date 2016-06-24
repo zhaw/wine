@@ -1,13 +1,15 @@
-function r = ransac(f1,d1,f2,d2)
+function [r, d] = ransac(f1,d1,f2,d2, n)
 
 [matches, scores] = vl_ubcmatch(d1,d2);
 numMatches = size(matches,2);
 
 X1 = f1(1:2, matches(1,:)); X1(3,:) = 1;
 X2 = f2(1:2, matches(2,:)); X2(3,:) = 1;
-clear H score ok x23 deth;
-score = zeros(100,1);
-for t = 1:100
+TEST = [0,0,100,100,0;0,100,100,0,0];
+TEST(3,:) = 1;
+clear H score ok H;
+score = zeros(n,1);
+for t = 1:n
     subset = vl_colsubset(1:numMatches, 4);
     A = [];
     for i = subset
@@ -20,15 +22,18 @@ for t = 1:100
     dv = X2_(2,:)./X2_(3,:) - X2(2,:)./X2(3,:);
     okt = (du.*du+dv.*dv) < 36;
     score(t) = sum(okt);
-    x23(t) = mean(abs(X2_(3,:)));
-    deth(t) = abs(det(ht(1:2,1:2)));
+    H{t} = ht;
 end
 [r, best] = max(score);
-x23 = x23(best);
-deth = deth(best);
-if deth / x23^2 < 1e-2 || deth / x23^2 > 1e2
+test_result = H{best} * TEST;
+test_result(1,:) = test_result(1,:) ./ test_result(3,:);
+test_result(2,:) = test_result(2,:) ./ test_result(3,:);
+s = polyarea(test_result(1,:), test_result(2,:));
+if s < 400 || s > 250000
     r = 0;
 end
+
+d = s;
 
 end
 

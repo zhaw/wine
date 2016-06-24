@@ -1,17 +1,15 @@
-sift_feature_train = 'vlsift_train/';
-sift_feature_test = 'vlsift_test2_cutted/';
-bof_feature_train = 'vlad_train200/';
-bof_feature_test = 'vlad_test2_cutted200/';
+sift_feature_train = 'vlsift_newtrain_cut/';
+sift_feature_test = 'vlsift_newtest_cut/';
+bof_feature_train = 'vlad_newtrain_cut800/';
+bof_feature_test = 'vlad_newtest_cut800/';
 
 try
-    mkdir(sift_feature_train);
-    mkdir(sift_feature_test);
     mkdir(bof_feature_train);
     mkdir(bof_feature_test);
 catch
 end
 
-centroids = load('kmeans_feature/kmeans_feature200.mat');
+centroids = load('kmeans_feature/kmeans_feature800.mat');
 centroids = centroids.centroids';
 n = size(centroids, 1);
 

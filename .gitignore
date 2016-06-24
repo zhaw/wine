@@ -1,6 +1,7 @@
 .DS_Store
 nohup.out
 
+*.ptx
 *.log
 *.caffemodel
 *.solverstate
